@@ -1,0 +1,39 @@
+version: 0.2
+
+env:
+  variables:
+    SOLUTION: .\TestASPWebsite\TestASPWebsite.csproj
+    PACKAGE_DIRECTORY: .\TestASPWebsite\packages
+    DOTNET_FRAMEWORK: 4.8
+
+phases:
+  install:
+    commands:
+      # Below is the URL for the MSI linked from https://www.iis.net/downloads/microsoft/web-deploy
+      #- Invoke-WebRequest -OutFile dotnet-sdk-5.0.301-win-arm64.exe https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-5.0.301-windows-arm64-installer
+      #- msiexec /i dotnet-sdk-5.0.301-win-arm64.exe /quiet
+      - Invoke-WebRequest -OutFile dotnet-install.ps1 https://dot.net/v1/dotnet-install.ps1
+      - ./dotnet-install.ps1 -Channel LTS
+      # MSIExec will return before it is actually done - 30s seems to work...
+      #- Start-Sleep 30
+  build:
+    commands:
+      #- '& nuget restore'
+      #- '& "C:\ProgramData\chocolatey\bin\NuGet.exe" restore $env:SOLUTION -PackagesDirectory $env:PACKAGE_DIRECTORY'
+      #- '& "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" -p:FrameworkPathOverride="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v$env:DOTNET_FRAMEWORK" $env:SOLUTION'
+      #- nuget restore $env:SOLUTION -PackagesDirectory $env:PACKAGE_DIRECTORY
+      #- msbuild $env:PROJECT.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=false /p:OutDir=C:\codebuild\artifacts\ /t:Package
+      - cd TestASPWebsite 
+      - nuget restore TestASPWebsite.csproj -SolutionDirectory ..\
+      - msbuild TestASPWebsite.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=true /p:PackageLocation=C:\codebuild\artifacts\TestASPWebsite.zip /t:Package
+      - cd ../TestAPI-1
+      #- dotnet restore
+      - dotnet publish TestAPI-1.csproj -c Release -o package/
+      - tar -C ./package/ -a -c -f C:\codebuild\artifacts\TestAPI-1.zip *
+      - cd ..
+      - cp aws-windows-deployment-manifest.json C:\codebuild\artifacts\
+      
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'C:\codebuild\artifacts\'
