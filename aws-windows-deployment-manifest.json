@@ -1,0 +1,36 @@
+{
+  "manifestVersion": 1,
+  "iisConfig": {
+    "appPools": [
+      {
+        "name": "MyFirstPool",
+        "recycling": { "regularTimeInterval": 10 }
+      },
+      {
+        "name": "MySecondPool",
+        "recycling": { "regularTimeInterval": 10 }
+      }
+    ]
+  },
+  "deployments": {
+    "msDeploy": [
+      {
+        "name": "DotnetFrameworkASPWebApp",
+        "parameters": {
+          "appBundle": "DotnetFrameworkASPWebApp.zip",
+          "iisPath": "/website",
+          "appPool": "MyFirstPool"
+        }
+      }
+    ],
+    "aspNetCoreWeb": [
+      {
+        "name": "DotnetWebAPI",
+        "parameters": {
+          "appBundle": "DotnetWebAPI.zip",
+          "iisPath": "/webapi"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+version: 0.2
+
+env:
+  variables:
+    PACKAGE_DIRECTORY: C:\codebuild\artifacts
+    DOTNET_FRAMEWORK: 4.8
+
+phases:
+  install:
+    commands:
+      # dotnet-install.ps1 is a lightweight script used mainly for CI/CD purposes (https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script)
+      # The best practice is to extend Microsoft .Net Framework image by installing .Net runtime on it then use it in your CodeBuild project.
+      # However, this approach was used for illustration purposes only.
+      - Invoke-WebRequest -OutFile dotnet-install.ps1 https://dot.net/v1/dotnet-install.ps1
+      - ./dotnet-install.ps1 -Channel LTS
+  build:
+    commands:
+      # Step 1: Building the ASP.net Framework project
+      # Step 1.1: Change Dir into the ASP.net Framework app
+      - cd DotnetFrameworkASPWebApp 
+      - nuget restore DotnetFrameworkASPWebApp.csproj -SolutionDirectory ..\
+      # Step 1.2: Create a Web-Deploy-Package using msbuild command and save it to the artifacts directory
+      - msbuild DotnetFrameworkASPWebApp.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=true /p:PackageLocation=$env:PACKAGE_DIRECTORY\DotnetFrameworkASPWebApp.zip /t:Package
+      # Step 2: Building the .net core project
+      # Step 2.1: Change Dir into the net  core Framework app
+      - cd ../TestAPI-1
+      # Step 2.2: dotnet publish will implicitly run dotnet restore
+      - dotnet publish DotnetWebAPI.csproj -c Release -o package/
+      # Step 2.3: Add the published files to an archive and save it to the artifacts directory
+      - tar -C ./package/ -a -c -f $env:PACKAGE_DIRECTORY\DotnetWebAPI.zip *
+      - cd ..
+      # Step 3: add Elastic Beanstalk deployment manifest file to the artifacts directory
+      - cp aws-windows-deployment-manifest.json $env:PACKAGE_DIRECTORY
+      
+artifacts:
+  files:
+    - '**/*'
+  base-directory: '$env:PACKAGE_DIRECTORY'
