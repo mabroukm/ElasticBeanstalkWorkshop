@@ -248,6 +248,8 @@ What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Envir
 ## 4. Building a pipeline to deploy Elastic Beanstalk
 <details>
 <summary>Click to expand</summary>
+   </br>
+   
    1. Go to [CodeCommit Console](https://console.aws.amazon.com/codesuite/codecommit/repositories?region=us-east-1) and make sure your set the region to **us-east-1** as shown in the below screenshot.
    
       ![CodeCommit Console](/images/eb-pipeline-01.png)
@@ -303,7 +305,6 @@ What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Envir
               <h2>Elastic Beanstalk Workshop V3</h2>
       ```
       Then commit your change and push the commit. Then go back to [CodePipeline Console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines?region=us-east-1). Choose your pipeline and wait until the pipeline execution finishes as in the below image. Now you can test your application to make sure the changes were deloyed to Elastic Beanstalk.
-   
       ![Pipeline Progress](/images/eb-pipeline-06.png)
    
 </details>
