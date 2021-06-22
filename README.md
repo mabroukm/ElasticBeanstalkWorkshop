@@ -244,3 +244,8 @@ What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Envir
 8. Choose the package file and deploy it. Wait until the deployment is complete then append **/website** and **/webapi** to your app URL to access both apps.
    
 </details>
+
+## 4. Building a pipeline to deploy Elastic Beanstalk
+<details>
+<summary>Click to expand</summary>
+</details>
