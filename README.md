@@ -12,8 +12,9 @@ Let's get started.
 ## Setup your development tools
 <details>
 <summary>Click to expand</summary>
-   
-Go to [Lab Login](https://dashboard.eventengine.run/login) and enter in the code given to you to get started with your account for the labs.
+<br/>   
+
+   Go to [Lab Login](https://dashboard.eventengine.run/login) and enter in the code given to you to get started with your account for the labs.
 
 > Note: If you already have an AWS account, open the above link in incognito/private mode so that you don’t accidently make changes to your AWS account.
 
@@ -114,6 +115,38 @@ Now let’s RDP into your dev machine.
    ![IAM Console - Download Credentials](/images/setup_07.png) 
     
  </details>    
+   
+### AWS Toolkit for Visual Studio profile setup
+<details>
+   <summary>Click to expand</summary>
+   
+   In this section, we will be adding account credentials to your toolkit to allow you to interact with AWS services from within Visual Studio.
+1. Start Visual Studio. If this is the first time launching Visual Studio after installing the AWS toolkit and no other credential profiles exist on your system it will display the AWS Getting Started view inviting you to add credentials.
+   ![Getting Started with AWS Toolkit for Visual Studio](/images/setup_08.png)
+> Note: If the AWS Getting Started view does not display (for whatever reason) you can still add a new credential profile using the AWS Explorer window, as follows:
+a. Open the AWS Explorer window by selecting View > AWS Explorer from the main menu.
+b. Click the New account profile button to the right of the Profile field (the first button in the set of three).
+c. The New Account Profile dialog is displayed, as shown:
+   ![Getting Started with AWS Toolkit for Visual Studio - New Account Profile](/images/setup_09.png)
+d. You can now resume with the instructions below which apply to either window.
+
+2. Enter a name for the credential profile. This can be the same name as the IAM user you created or you can use default, as suggested in the dialog. If you use the name default the tools will locate and use it automatically if no other credential profile is specified.
+   
+> Note: if you elect to use a custom name you will need to specify the profile name when using the dotnet CLI extensions in later modules using the –profile option. All instructions and screenshots in this guide assume you have named your credential profile default.
+ 
+3. Use the csv credentials file that was downloaded in the pre-requisites “Create Visual Studio Environment” steps.
+
+4. Click the Import from csv file button, navigate to the csv file you downloaded in the previous step and select it before clicking OK to close the dialog.
+
+5. The access and secret access keys for the user will be loaded into the view.
+
+6. You may leave the Account Number blank if you wish. For all standard public AWS accounts leave the Account Type field at Standard AWS Account. If you are using an AWS GovCloud account, or are in the AWS China region, select the correct account type in the field.
+
+7. Click Save and close button (OK in the New Account Profile window) to close the view. Your new credential profile will be preselected in the AWS Explorer window ready for use.
+
+</details>   
+   
+   Now let's start building.
 </details>
 
 
