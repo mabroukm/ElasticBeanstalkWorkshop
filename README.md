@@ -123,12 +123,17 @@ Now let’s RDP into your dev machine.
    In this section, we will be adding account credentials to your toolkit to allow you to interact with AWS services from within Visual Studio.
 1. Start Visual Studio. If this is the first time launching Visual Studio after installing the AWS toolkit and no other credential profiles exist on your system it will display the AWS Getting Started view inviting you to add credentials.
    ![Getting Started with AWS Toolkit for Visual Studio](/images/setup_08.png)
-> Note: If the AWS Getting Started view does not display (for whatever reason) you can still add a new credential profile using the AWS Explorer window, as follows:
-a. Open the AWS Explorer window by selecting View > AWS Explorer from the main menu.
-b. Click the New account profile button to the right of the Profile field (the first button in the set of three).
-c. The New Account Profile dialog is displayed, as shown:
-   ![Getting Started with AWS Toolkit for Visual Studio - New Account Profile](/images/setup_09.png)
-d. You can now resume with the instructions below which apply to either window.
+> Note: If the AWS Getting Started view does not display (for whatever reason) you can still add a new credential profile using the AWS Explorer window, as follows
+   
+    a. Open the AWS Explorer window by selecting View > AWS Explorer from the main menu.
+   
+    b. Click the New account profile button to the right of the Profile field (the first button in the set of three).
+   
+    c. The New Account Profile dialog is displayed, as shown
+   
+<img src="/images/setup_09.png"></img>
+   
+    d. You can now resume with the instructions below which apply to either window.
 
 2. Enter a name for the credential profile. This can be the same name as the IAM user you created or you can use default, as suggested in the dialog. If you use the name default the tools will locate and use it automatically if no other credential profile is specified.
    
