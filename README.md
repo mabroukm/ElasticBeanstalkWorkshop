@@ -174,19 +174,23 @@ Now let’s RDP into your dev machine.
    
 5. Review and accept default values on this screen. Before you click next, take your time to understand what are all these values for.
 **Key pair** is important if you would like to access the EC2 instances that Elastic Beanstalk will create on your behalf.
-![VS - Solution Explorer](/images/eb-from-vs-04.png)
+
+   ![VS - Solution Explorer](/images/eb-from-vs-04.png)
    
    
 6. Review and accept the default values here too. Do you know what is X-Ray? It is an AWS tool that helps developers to analyse and debug production applications.
-![VS - Solution Explorer](/images/eb-from-vs-05.png)
+
+   ![VS - Solution Explorer](/images/eb-from-vs-05.png)
 
    
 7. Review all settings then click Deploy.
-![VS - Solution Explorer](/images/eb-from-vs-06.png)
+
+   ![VS - Solution Explorer](/images/eb-from-vs-06.png)
 
    
 8. Now go to AWS Elastic Beanstalk console [here](https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environments). Click on the URL to open your app.
-![VS - Solution Explorer](/images/eb-from-vs-07.png)
+
+   ![VS - Solution Explorer](/images/eb-from-vs-07.png)
    
 9. Get back to Visual Studio and browse to **_Home.cshtml** page under **Views** folder and change line 9 to 
    ```
@@ -196,6 +200,21 @@ Now let’s RDP into your dev machine.
 10. Build the project and redeploy the project again. While redeploying go to your app URL and refresh it. Did you notice that your app is down for few minutes? That could be acceptable for some apps. You may also consider deploying outside operation hours. But what if your business cannot tolerate that downtime?
    
 11. Go back to AWS Elastic Beanstalk console [here](https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environments), from **Configuration** page on the left hand side of the page, select **Edit** button in **Rolling updates and deployments** section
-![VS - Solution Explorer](/images/eb-from-vs-09.png)   
+
+   ![VS - Solution Explorer](/images/eb-from-vs-09.png)   
+
+12. Update the Deployment Policy to **Immutable** then go back Visual Studio and redeploy. Watch the application URL. What did you notice this time? There was almost no noticable downtime. That is because Elastic Beanstalk create a new scaling group and put it into service then removes the old scaling group.
+   
+   ![VS - Solution Explorer](/images/eb-from-vs-10.png) 
+
+There are two other Deployment Policies that are not in the droplist items; they are **Rolling** and **Rolling with additional batch**. Ask the solutions architect about them and why they are hidden or have a read [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.rollingupdates.html)
+   
+What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Environment? Please move to the next section to see how does that work.
 
 </details>
+
+## Deploy Multiple .Net Apps to the same Elastic Beanstalk Environment
+<details>
+<summary>Click to expand</summary>
+   
+<details>
