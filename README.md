@@ -12,7 +12,7 @@ Let's get started.
 ## Setup your development tools
 <details>
 <summary>Click to expand</summary>
-   
+<br/>   
 Go to [Lab Login](https://dashboard.eventengine.run/login) and enter in the code given to you to get started with your account for the labs.
 
 > Note: If you already have an AWS account, open the above link in incognito/private mode so that you don’t accidently make changes to your AWS account.
