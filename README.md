@@ -9,7 +9,7 @@ Through this set of labs, you will try to
 
 Let's get started.
 
-## Setup your development tools
+## 1. Setup your development tools
 <details>
 <summary>Click to expand</summary>
 <br/>   
@@ -154,7 +154,7 @@ Now let’s RDP into your dev machine.
    Now let's start building.
 </details>
 
-## Deploy an ASP .Net Framework to AWS Elastic Beanstalk from Visual Studio
+## 2. Deploy an ASP .Net Framework to AWS Elastic Beanstalk from Visual Studio
 <details>
 <summary>Click to expand</summary>
 
@@ -213,7 +213,7 @@ What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Envir
 
 </details>
 
-## Deploy Multiple .Net Apps to the same Elastic Beanstalk Environment
+## 3. Deploy Multiple .Net Apps to the same Elastic Beanstalk Environment
 <details>
 <summary>Click to expand</summary>
    
