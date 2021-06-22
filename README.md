@@ -217,4 +217,30 @@ What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Envir
 <details>
 <summary>Click to expand</summary>
    
-<details>
+   AWS Toolkit for Visual Studio doesn't support deploying multiple apps to Elastic Beanstalk, the apps need to be packaged manually. The way that works is that we will publish both projects to file system then archive them together with a manifest file that describes how those apps will be deployed to IIS. Let's that package that together.
+   
+1. Right click on **DotnetFrameworkASPWebApp** project from **Solution Explorer** and choose **Publish**. On **Publish** window, select Target **Web Server(IIS)**. Click Next
+   
+   ![VS - Solution Explorer](/images/eb-manual-01.png)
+
+2. For Specific taget, select **Web Deploy Package**
+   
+   ![VS - Solution Explorer](/images/eb-manual-02.png)
+   
+3. For IIS Connection, specify Package location to a folder on your desktop. Set **Site name** to **DotnetFrameworkASPWebApp**. Click Finish
+   
+   ![VS - Solution Explorer](/images/eb-manual-03.png)
+   
+4. Repeat the above steps for **DotnetWebAPI** to publish it to the same folder.
+   
+5. Now copy **aws-windows-deployment-manifest.json** file from the solution directory to the package folder. You can also find the file [here](https://raw.githubusercontent.com/mabroukm/ElasticBeanstalkWorkshop/master/aws-windows-deployment-manifest.json). Take a moment to read the file and understand the structure. Please ask the solutions architect if you have any questions.
+   
+6. From inside the package folder, select all files and compress. The result file is deployable to Elastic Beanstalk.
+
+7. Go to AWS Elastic Beanstalk console [here](https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environments) and select your environment then select **Upload and deploy** button from your environment home page.
+   
+   ![VS - Solution Explorer](/images/eb-manual-04.png)
+   
+8. Choose the package file and deploy it. Wait until the deployment is complete then append **/website** and **/webapi** to your app URL to access both apps.
+   
+</details>
