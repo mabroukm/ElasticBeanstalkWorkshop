@@ -159,37 +159,43 @@ Now let’s RDP into your dev machine.
 <summary>Click to expand</summary>
 
 1. If you use the AWS EC2 Instance dev box, you should be able to have the below solution in C:\Users\Administrator\source\repos folder. If you cannot find it for any reason or you are using your own machine to run the lab you can pull the solution from this repo https://github.com/mabroukm/ElasticBeanstalkWorkshop.git
-![VS - Solution Explorer](/images/eb-from-vs-01.png) 
+
+   ![VS - Solution Explorer](/images/eb-from-vs-01.png) 
 
 2. From **Solution Explorer** view right click on DotnetFrameworkASPWebApp project and select Publish to AWS Elastic Beanstalk...
 
 3. **Create a new application environment** option will be automatically selected 
-![VS - Solution Explorer](/images/eb-from-vs-02.png) 
+
+   ![VS - Solution Explorer](/images/eb-from-vs-02.png) 
    
 4. On the **Application Environment** window, enter or select from the drop down list Application and Environment names. You add your name initials to get an available URL value. Click Next
-![VS - Solution Explorer](/images/eb-from-vs-03.png)
+
+   ![VS - Solution Explorer](/images/eb-from-vs-03.png)
    
 5. Review and accept default values on this screen. Before you click next, take your time to understand what are all these values for.
 **Key pair** is important if you would like to access the EC2 instances that Elastic Beanstalk will create on your behalf.
 ![VS - Solution Explorer](/images/eb-from-vs-04.png)
    
+   
 6. Review and accept the default values here too. Do you know what is X-Ray? It is an AWS tool that helps developers to analyse and debug production applications.
 ![VS - Solution Explorer](/images/eb-from-vs-05.png)
 
+   
 7. Review all settings then click Deploy.
 ![VS - Solution Explorer](/images/eb-from-vs-06.png)
 
+   
 8. Now go to AWS Elastic Beanstalk console [here](https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environments). Click on the URL to open your app.
 ![VS - Solution Explorer](/images/eb-from-vs-07.png)
    
 9. Get back to Visual Studio and browse to **_Home.cshtml** page under **Views** folder and change line 9 to 
    ```
-           <h2>Elastic Beanstalk Workshop V1</h2>
+           <h2>Elastic Beanstalk Workshop V2</h2>
    ```
+   
 10. Build the project and redeploy the project again. While redeploying go to your app URL and refresh it. Did you notice that your app is down for few minutes? That could be acceptable for some apps. You may also consider deploying outside operation hours. But what if your business cannot tolerate that downtime?
    
 11. Go back to AWS Elastic Beanstalk console [here](https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environments), from **Configuration** page on the left hand side of the page, select **Edit** button in **Rolling updates and deployments** section
 ![VS - Solution Explorer](/images/eb-from-vs-09.png)   
-
 
 </details>
