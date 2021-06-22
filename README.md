@@ -248,4 +248,62 @@ What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Envir
 ## 4. Building a pipeline to deploy Elastic Beanstalk
 <details>
 <summary>Click to expand</summary>
+   1. Go to [CodeCommit Console](https://console.aws.amazon.com/codesuite/codecommit/repositories?region=us-east-1) and make sure your set the region to **us-east-1** as shown in the below screenshot.
+   
+      ![CodeCommit Console](/images/eb-pipeline-01.png)
+   
+   2. Create a repository and copy its URL
+   
+      ![Copy Repo URL](/images/eb-pipeline-02.png)
+   
+   3. Open *Git Bash* Console on your dev machine and change directory to the solution then switch to the new repo
+   
+      ```
+         cd C:\source\repos\ElasticBeanstalkWorkshop
+         git remote rm origin
+         git remote add origin <Paste your new repo URL here>
+         git push --set-upstream origin master
+      ```
+   
+   4. Create a [new S3 Bucket](https://s3.console.aws.amazon.com/s3/bucket/create?region=us-east-1) to store the build artifacts. Enter a unique bucket name. 
+      > Hint: You can append your initials to the workshop name or your account number to make it unique.
+   
+   5. Create a [new build project](https://console.aws.amazon.com/codesuite/codebuild/project/new?region=us-east-1). Enter the below details on the **Create build project** page.
+      |Parameter|Value|
+      | ----------- | ----------- |
+      |Project configuration - Project name|EBWorkshopBuildProject|
+      |Source - Source provider|AWS Code Commit|
+      |Source- Repository|<Select the repository you have just created>|
+      |Source - Branch|master|
+      |Environment - Environment image|Custom image|
+      |Environment - Environment type|Windows 2019|
+      |Environment - Image registry|Other registry|
+      |Environment - External registry URL|mcr.microsoft.com/dotnet/framework/sdk:4.8|
+      |Buildspec - Build specifications|use a buildspec file|
+      |Artifacts - Type|S3|
+      |Artifacts - Bucket name|<enter the bucket you have just created>|
+      |Artifacts - Artifacts packaging|Zip|
+   
+      CodeBuild uses **buildspec.yml** file from your repo to build the two project. Browse to that file on your file system or open it in the browser [here](https://raw.githubusercontent.com/mabroukm/ElasticBeanstalkWorkshop/master/buildspec.yml) and read it. The file has 2 phases; Install and Build. In Install phase we install Dotnet 5.0 SDK to be able to build and package the Dotnet project. The image has Dotnet Framework SDK version 4.8 already installed and we use it to build and package the Dotnet Framework project. Then we pack the 2 packages together with Elastic Beanstalk manifest file in the same way we did in the previous section.
+      
+   6. Create a [new pipeline](https://console.aws.amazon.com/codesuite/codepipeline/pipeline/new?region=us-east-1). Enter **EBWorkshopPipeline** in the Pipeline name field and click next.
+      ![Create a new Pipeline](/images/eb-pipeline-03.png)
+   
+   7. On the **Add source stage** page select your CodeCommit repo.
+      ![Create a new Pipeline](/images/eb-pipeline-04.png)
+   
+   8. On the **Add build stage** page select your CodeBuild project and accept the other default values.
+   
+   9. On the **Add deploy stage** page set the **Deploy provider** to **Elastic Beanstalk** and Set the **Region** field to **Sydney**. Your application name will appear in the **Application Name** field; select it and select the environment we just deployed to in the previous sections.
+      
+      ![Add a deploy stage](/images/eb-pipeline-05.png)   
+   
+   10. Go to Visual Studio and browse to **_Home.cshtml** page under **Views** folder and change line 9 to 
+      ```
+              <h2>Elastic Beanstalk Workshop V3</h2>
+      ```
+      Then commit your change and push the commit. Then go back to [CodePipeline Console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines?region=us-east-1). Choose your pipeline and wait until the pipeline execution finishes as in the below image. Now you can test your application to make sure the changes were deloyed to Elastic Beanstalk.
+   
+      ![Pipeline Progress](/images/eb-pipeline-06.png)
+   
 </details>
