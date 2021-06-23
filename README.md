@@ -320,52 +320,52 @@ Now let’s RDP into your dev machine.
    
    1. AWS Elastic Beanstalk Console comes with a dashboad that display main monitoring metrics and allows you set an alarm when one of those metrics changes or reaches a threshold for a steady period of time. Open AWS Elastic Beanstalk [Console](https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environments) then choose your environment then select Monitoring from the lefthand side menu.
    
-      ![Monitoring](/images/monitorning-01.png)
+      ![Monitoring](/images/monitoring-01.png)
    
    2. Click on **Health** link on the lefthand side menu and inspect it.
    
-      ![Monitoring](/images/monitorning-02.png)
+      ![Monitoring](/images/monitoring-02.png)
    
    3. What if you would like to get a notification email when there are more than a specific number of HTTP-500 responses in a minute. Click on **Configuration** link from the lefthand side menu and click **Edit** on the **Monitoring** section. Then add **ApplicationRequests4xx**, **ApplicationRequests5xx** and **ApplicationRequestsTotal** in both **Cloudwatch Custom Metrics - Instance** and **Cloudwatch Custom Metrics - Environment**
    
-      ![Monitoring](/images/monitorning-03.png)
+      ![Monitoring](/images/monitoring-03.png)
    
    4. Go back to your environment home page and open your app URL and append **/testaspwebsite/Account/Register** to it. Fill in the data then click register. The app should respond with an exception and Http 500 status code.
    
    5. Go to CloudWatch [Console - Metrics page](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#metricsV2) and select **Elastic Beanstalk**
    
-      ![Monitoring](/images/monitorning-04.png)
+      ![Monitoring](/images/monitoring-04.png)
    
       You should be able to see spikes in the metric chart. Now let's create an alarm to receive an email notification when another spike happens.
    
    6. Go to CloudWatch [Console - Alarms page](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2) and click **Create Alarm**
       
-         ![Monitoring](/images/monitorning-05.png)
+         ![Monitoring](/images/monitoring-05.png)
    
          Click Next
    
    7. Click **Select metric**
          
-         ![Monitoring](/images/monitorning-06.png)
+         ![Monitoring](/images/monitoring-06.png)
    
    8. Select **Elastic Beanstalk**
    
-         ![Monitoring](/images/monitorning-07.png)
+         ![Monitoring](/images/monitoring-07.png)
    
    9. Select **Environment metrics**
    
-        ![Monitoring](/images/monitorning-08.png)
+        ![Monitoring](/images/monitoring-08.png)
    
    10. Select **ApplicationRequests5xx**
    
-        ![Monitoring](/images/monitorning-09.png)
+        ![Monitoring](/images/monitoring-09.png)
    
    11. Configure the alarm condition
    
-         ![Monitoring](/images/monitorning-10.png)
+         ![Monitoring](/images/monitoring-10.png)
    
    12. On the notification page, create a new SNS topic and enter your email
    
-         ![Monitoring](/images/monitorning-11.png)
+         ![Monitoring](/images/monitoring-11.png)
    
 </details>
