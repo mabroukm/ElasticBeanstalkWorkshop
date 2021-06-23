@@ -1,11 +1,12 @@
 # Dotnet on AWS Elastic Beanstalk Workshop
-AWS Elastic Beanstalk for .Net Apps Workshop is an extension to '.Net on AWS ImmersionDay' that aims at covering common usecases for running .net apps on AWS Elastic Beanstalk service.
+AWS Elastic Beanstalk for .Net Apps Workshop is an extension to '.Net on AWS ImmersionDay' that aims at covering common use cases for running .net apps on AWS Elastic Beanstalk service.
 
 Through this set of labs, you will try to
-- Create, clone and configure Elastic Beanstalk environments
-- Deploy multiple Dotnet apps to the same Elastic Beanstalk environment.
-- Build a CI/CD pipeline that deploys your apps to AWS Elastic Beanstalk.
-- Setup monitoring dashboard for your environment.
+- Create, configure and monitor Elastic Beanstalk environments
+- Deploy a single app to an Elastic Beanstalk Environment from Visual Studio.
+- Deploy multiple Dotnet apps to a single Elastic Beanstalk Environment
+- Build a CI/CD pipeline to build and deploy your apps to AWS Elastic Beanstalk.
+- Setup monitoring dashboard and alarms for your environment.
 
 Let's get started.
 
