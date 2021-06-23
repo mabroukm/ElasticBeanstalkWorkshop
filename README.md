@@ -192,28 +192,32 @@ Now let’s RDP into your dev machine.
 
    ![VS - Solution Explorer](/images/eb-from-vs-07.png)
    
-9. Get back to Visual Studio and browse to **_Home.cshtml** page under **Views** folder and change line 9 to 
+</details>
+
+## 3. Elastic Beanstalk Deployment Policies
+<details>
+<summary>Click to expand</summary>
+   
+1. Get back to Visual Studio and browse to **_Home.cshtml** page under **Views** folder and change line 9 to 
    ```
            <h2>Elastic Beanstalk Workshop V2</h2>
    ```
    
-10. Build the project and redeploy the project again. While redeploying go to your app URL and refresh it. Did you notice that your app is down for few minutes? That could be acceptable for some apps. You may also consider deploying outside operation hours. But what if your business cannot tolerate that downtime?
+2. Build the project and redeploy the project again. While redeploying go to your app URL and refresh it. Did you notice that your app is down for few minutes? That could be acceptable for some apps. You may also consider deploying outside operation hours. But what if your business cannot tolerate that downtime?
    
-11. Go back to AWS Elastic Beanstalk console [here](https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environments), from **Configuration** page on the left hand side of the page, select **Edit** button in **Rolling updates and deployments** section
+3. Go back to AWS Elastic Beanstalk console [here](https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environments), from **Configuration** page on the left hand side of the page, select **Edit** button in **Rolling updates and deployments** section
 
    ![VS - Solution Explorer](/images/eb-from-vs-09.png)   
 
-12. Update the Deployment Policy to **Immutable** then go back Visual Studio and redeploy. Watch the application URL. What did you notice this time? There was almost no noticable downtime. That is because Elastic Beanstalk create a new scaling group and put it into service then removes the old scaling group.
+4. Update the Deployment Policy to **Immutable** then go back Visual Studio and redeploy. Watch the application URL. What did you notice this time? There was almost no noticable downtime. That is because Elastic Beanstalk create a new scaling group and put it into service then removes the old scaling group.
    
    ![VS - Solution Explorer](/images/eb-from-vs-10.png) 
 
-There are two other Deployment Policies that are not in the droplist items; they are **Rolling** and **Rolling with additional batch**. Ask the solutions architect about them and why they are hidden or have a read [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.rollingupdates.html)
+   There are two other Deployment Policies that are not in the droplist items; they are **Rolling** and **Rolling with additional batch**. They are hidden because your environment type is **Single Instance** and **Load Balanaced**. Ask the lab operator why they only work with Loadbalanced environments.
    
-What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Environment? Please move to the next section to see how does that work.
-
 </details>
 
-## 3. Deploy Multiple .Net Apps to the same Elastic Beanstalk Environment
+## 4. Deploy Multiple .Net Apps to the same Elastic Beanstalk Environment
 <details>
 <summary>Click to expand</summary>
    
@@ -245,7 +249,7 @@ What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Envir
    
 </details>
 
-## 4. Building a pipeline to deploy Elastic Beanstalk
+## 5. Building a pipeline to deploy Elastic Beanstalk
 <details>
 <summary>Click to expand</summary>
    </br>
@@ -306,5 +310,62 @@ What if we need to deploy multiple .Net apps to the same Elastic Beanstalk Envir
       ```
       Then commit your change and push the commit. Then go back to [CodePipeline Console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines?region=us-east-1). Choose your pipeline and wait until the pipeline execution finishes as in the below image. Now you can test your application to make sure the changes were deloyed to Elastic Beanstalk.
       ![Pipeline Progress](/images/eb-pipeline-06.png)
+   
+</details>
+
+## 6. Monitoring
+<details>
+<summary>Click to expand</summary>
+   </br>
+   
+   1. AWS Elastic Beanstalk Console comes with a dashboad that display main monitoring metrics and allows you set an alarm when one of those metrics changes or reaches a threshold for a steady period of time. Open AWS Elastic Beanstalk [Console](https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environments) then choose your environment then select Monitoring from the lefthand side menu.
+   
+      ![Monitoring](/images/monitorning-01.png)
+   
+   2. Click on **Health** link on the lefthand side menu and inspect it.
+   
+      ![Monitoring](/images/monitorning-02.png)
+   
+   3. What if you would like to get a notification email when there are more than a specific number of HTTP-500 responses in a minute. Click on **Configuration** link from the lefthand side menu and click **Edit** on the **Monitoring** section. Then add **ApplicationRequests4xx**, **ApplicationRequests5xx** and **ApplicationRequestsTotal** in both **Cloudwatch Custom Metrics - Instance** and **Cloudwatch Custom Metrics - Environment**
+   
+      ![Monitoring](/images/monitorning-03.png)
+   
+   4. Go back to your environment home page and open your app URL and append **/testaspwebsite/Account/Register** to it. Fill in the data then click register. The app should respond with an exception and Http 500 status code.
+   
+   5. Go to CloudWatch [Console - Metrics page](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#metricsV2) and select **Elastic Beanstalk**
+   
+      ![Monitoring](/images/monitorning-04.png)
+   
+      You should be able to see spikes in the metric chart. Now let's create an alarm to receive an email notification when another spike happens.
+   
+   6. Go to CloudWatch [Console - Alarms page](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2) and click **Create Alarm**
+      
+         ![Monitoring](/images/monitorning-05.png)
+   
+         Click Next
+   
+   7. Click **Select metric**
+         
+         ![Monitoring](/images/monitorning-06.png)
+   
+   8. Select **Elastic Beanstalk**
+   
+         ![Monitoring](/images/monitorning-07.png)
+   
+   9. Select **Environment metrics**
+   
+        ![Monitoring](/images/monitorning-08.png)
+   
+   10. Select **ApplicationRequests5xx**
+   
+        ![Monitoring](/images/monitorning-09.png)
+   
+   11. Configure the alarm condition
+   
+         ![Monitoring](/images/monitorning-10.png)
+   
+   12. On the notification page, create a new SNS topic and enter your email
+   
+         ![Monitoring](/images/monitorning-11.png)
    
 </details>
