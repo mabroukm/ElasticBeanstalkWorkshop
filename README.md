@@ -1,4 +1,4 @@
-# AWS Elastic Beanstalk for .Net Apps Workshop
+# Dotnet on AWS Elastic Beanstalk Workshop
 AWS Elastic Beanstalk for .Net Apps Workshop is an extension to '.Net on AWS ImmersionDay' that aims at covering common usecases for running .net apps on AWS Elastic Beanstalk service.
 
 Through this set of labs, you will try to
